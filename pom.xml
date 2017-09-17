@@ -1,8 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-	
-	
-	>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>site.gaoyisheng</groupId>
 	<artifactId>ejos</artifactId>
@@ -11,15 +8,12 @@
 	<name>ejos Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
-
-
-
 	<properties>
-		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<!-- <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- spring版本号 -->
-		<spring.version>4.0.2.RELEASE</spring.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
 
 		<!-- mybatis版本号 -->
 		<mybatis.version>3.2.6</mybatis.version>
@@ -28,18 +22,21 @@
 		<log4j.version>1.2.17</log4j.version>
 
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-web-api</artifactId>
 			<version>7.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.7</version>
 			<!-- 表示开发的时候引入，发布的时候不会加载此包 -->
 			<scope>test</scope>
 		</dependency>
@@ -105,12 +102,12 @@
 			<version>1.2.2</version>
 		</dependency>
 
-		<!-- 导入Mysql数据库链接jar包 -->
-<!-- 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql-connector-java</artifactId>
-			<version>9.4.1210</version>
-		</dependency> -->
+		<!-- 导入postgresql数据库链接jar包 -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1210.jre6</version>
+		</dependency>
 
 		<!-- 导入dbcp的jar包，用来在applicationContext.xml中配置数据库 -->
 		<dependency>
@@ -175,54 +172,70 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.9</version>
 		</dependency>
+
+		<!-- <dependency> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-war-runner</artifactId> 
+			<version>2.2</version> </dependency> -->
 	</dependencies>
 
 	<build>
 		<plugins>
+			<!-- war package support -->
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<!-- 此为管理员路径，不是部署路径-->
+					<url>http://localhost:8080/manager/text</url>
+					<uriEncoding>utf-8</uriEncoding>
+					<update>true</update>
+					<server>tomcat</server>
+					<!-- 此处为服务器上的用户名和密码，早tomcat-user里设置 格式如-->
+					<role rolename="tomcat" />
+					<role rolename="manager" />
+					<role rolename="admin" />
+					<role rolename="manager-gui" />
+					<role rolename="manager-script" />
+					<user username="admin" password="admin"
+						roles="tomcat，manager,admin,manager-gui,manager-script" />
+					<username>admin</username>
+					<password>admin</password>
+					<path>/${fileName}</path>
+				</configuration>
+			</plugin>
+
+			<!-- wildfly deploy support see also:https://docs.jboss.org/wildfly/plugins/maven/latest/index.html -->
+<!-- 			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<version>1.1.0.Alpha5</version>
+			</plugin> -->
+
+			<!-- pmd -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-pmd-plugin</artifactId> 
+				<version>3.6</version> <configuration> <includeTests>true</includeTests> 
+				<minimumTokens>100</minimumTokens> <linkXref>true</linkXref> <targetJdk>${target.jdk}</targetJdk> 
+				<failOnViolation>true</failOnViolation> </configuration> <executions> <execution> 
+				<phase>test</phase> <goals> <goal>pmd</goal> <goal>cpd</goal> <goal>cpd-check</goal> 
+				<goal>check</goal> </goals> </execution> </executions> </plugin> -->
+
+			<!-- complier -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
-					<compilerArguments>
-						<endorseddirs>${endorsed.dir}</endorseddirs>
-					</compilerArguments>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<!-- <execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${endorsed.dir}</outputDirectory>
-							<silent>true</silent>
-							<artifactItems>
-								<artifactItem>
-									<groupId>javax</groupId>
-									<artifactId>javaee-endorsed-api</artifactId>
-									<version>7.0</version>
-									<type>jar</type>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution> -->
-				</executions>
 			</plugin>
 		</plugins>
 
