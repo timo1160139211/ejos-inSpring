@@ -12,8 +12,8 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<!--数据库链接URL，用户名、密码 -->
-		<jdbcConnection driverClass="org.postgresql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:5432/springlearn" userId="postgres"
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://localhost:5432/springlearn" userId="postgres"
 			password="postgres">
 		</jdbcConnection>
 		<javaTypeResolver>
@@ -21,18 +21,18 @@
 		</javaTypeResolver>
 		<!-- 生成模型的包名和位置 -->
 		<javaModelGenerator targetPackage="site.gaoyisheng.pojo"
-			targetProject="src">
+			targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		<!-- 生成映射文件的包名和位置 -->
-		<sqlMapGenerator targetPackage="site.gaoyisheng.mapping"
-			targetProject="src">
+		<sqlMapGenerator targetPackage="site.gaoyisheng.dao.mapping"
+			targetProject="src/main/java/">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- 生成DAO的包名和位置 -->
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="site.gaoyisheng.dao" targetProject="src">
+			targetPackage="site.gaoyisheng.dao" targetProject="src/main/java/">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名 -->
