@@ -2,7 +2,6 @@
 	xmlns="http://java.sun.com/xml/ns/javaee"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
-	<!-- <web-app> -->
 
 	<display-name>Archetype Created Web Application</display-name>
 	<!-- Spring和mybatis的配置文件 -->
@@ -48,6 +47,8 @@
 		<!-- 此处可以可以配置成*.do，对应struts的后缀习惯 -->
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
-	 <welcome-file-list> <welcome-file>/index.jsp</welcome-file> </welcome-file-list> 
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>
 
