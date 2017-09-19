@@ -16,10 +16,12 @@
 		<spring.version>4.3.6.RELEASE</spring.version>
 
 		<!-- mybatis版本号 -->
-		<mybatis.version>3.2.6</mybatis.version>
+		<mybatis.version>3.4.5</mybatis.version>
 		<!-- log4j日志文件管理包版本 -->
 		<slf4j.version>1.7.7</slf4j.version>
 		<log4j.version>1.2.17</log4j.version>
+		
+		<finalName>ejos</finalName>
 
 	</properties>
 	<dependencies>
@@ -99,7 +101,7 @@
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.2.2</version>
+			<version>1.3.1</version>
 		</dependency>
 
 		<!-- 导入postgresql数据库链接jar包 -->
@@ -156,6 +158,19 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency> 
+
+
 		<!-- 上传组件包 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -193,12 +208,12 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<!-- 此为管理员路径，不是部署路径-->
+					<!-- 此为管理员路径，不是部署路径 -->
 					<url>http://localhost:8080/manager/text</url>
 					<uriEncoding>utf-8</uriEncoding>
 					<update>true</update>
 					<server>tomcat</server>
-					<!-- 此处为服务器上的用户名和密码，早tomcat-user里设置 格式如-->
+					<!-- 此处为服务器上的用户名和密码，早tomcat-user里设置 格式如 -->
 					<role rolename="tomcat" />
 					<role rolename="manager" />
 					<role rolename="admin" />
@@ -208,16 +223,13 @@
 						roles="tomcat，manager,admin,manager-gui,manager-script" />
 					<username>admin</username>
 					<password>admin</password>
-					<path>/${fileName}</path>
+					<path>/${finalName}</path>
 				</configuration>
 			</plugin>
 
 			<!-- wildfly deploy support see also:https://docs.jboss.org/wildfly/plugins/maven/latest/index.html -->
-<!-- 			<plugin>
-				<groupId>org.wildfly.plugins</groupId>
-				<artifactId>wildfly-maven-plugin</artifactId>
-				<version>1.1.0.Alpha5</version>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.wildfly.plugins</groupId> <artifactId>wildfly-maven-plugin</artifactId> 
+				<version>1.1.0.Alpha5</version> </plugin> -->
 
 			<!-- pmd -->
 			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-pmd-plugin</artifactId> 
@@ -239,8 +251,27 @@
 			</plugin>
 		</plugins>
 
-
 		<finalName>ejos</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+					<include>**/*.tld</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
 	</build>
 
 </project>

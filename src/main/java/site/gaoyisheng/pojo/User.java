@@ -1,5 +1,6 @@
 package site.gaoyisheng.pojo;
 
+
 public class User {
     private String id;
 
@@ -8,6 +9,9 @@ public class User {
     private Object password;
 
     private Integer age;
+    
+    public User() {
+    }
 
     public String getId() {
         return id;
