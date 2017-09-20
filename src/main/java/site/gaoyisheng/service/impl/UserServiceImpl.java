@@ -14,8 +14,9 @@ public class UserServiceImpl implements UserService {
     private UserMapper userDao; 
     
 	@Override
-	public User getUserById(String userId) {
+	public User getUserById(int userId) {
 		return this.userDao.selectByPrimaryKey(userId);
 	}
+
 
 }
