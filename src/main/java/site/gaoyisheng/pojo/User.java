@@ -27,9 +27,6 @@ public class User {
      *
      * @mbg.generated
      */
-    
-    public User(){}
-    
     public Integer getId() {
         return id;
     }
