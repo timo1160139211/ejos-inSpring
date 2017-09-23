@@ -21,7 +21,7 @@ public class UserController {
 	public String toIndex(HttpServletRequest request,Model model){
 		System.out.println(request.getParameter("id"));
 		
-		Integer userId = Integer.getInteger(request.getParameter("id"));
+		Integer userId = Integer.parseInt(request.getParameter("id"));
 		User user = this.userService.getUserByPrimaryKey(userId);
 		model.addAttribute("user", user);
 		

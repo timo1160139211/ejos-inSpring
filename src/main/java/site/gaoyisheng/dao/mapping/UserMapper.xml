@@ -23,7 +23,7 @@
     -->
     select 
     <include refid="Base_Column_List" />
-    from user
+    from public."user"
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
