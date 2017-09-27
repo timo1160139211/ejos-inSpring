@@ -11,7 +11,7 @@ import site.gaoyisheng.pojo.User;
 import site.gaoyisheng.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/u")
 public class UserController {
 
 	@Autowired

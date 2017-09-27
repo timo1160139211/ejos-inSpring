@@ -1,5 +1,8 @@
 package site.gaoyisheng.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +25,33 @@ public class LoginController {
 	User currentUser;
 
 	@RequestMapping("/login")
-   @ResponseBody
-	public String login(HttpServletRequest request, Model model, @RequestParam("number") String number,
-			@RequestParam("password") String password) {
+	@ResponseBody
+	public String login(HttpServletRequest request, Model model,
+			@RequestParam(value = "number", required = true) String number,
+			@RequestParam(value = "password", required = true) String password) {
 
-		System.out.println(password+number);
-		
+		System.out.println(number + "\n" + password + "\n");
+
 		if (!(number.equals("") && password.equals(""))) {// not null
 
-			//ajax + jQuery find User in DB or not?
-			currentUser = loginService.selectByNumberAndPassword(number, password);
+			System.out.println("finding");
+
+			Map<String, Object> parameterMap = new HashMap<String, Object>();
+			parameterMap.put("number", number);
+			parameterMap.put("password", password);
+			// ajax + jQuery find User in DB or not?
+			currentUser = loginService.selectByNumberAndPassword(parameterMap);
 			model.addAttribute("user", currentUser);
-			
+
+			if (null != currentUser) {
+				 System.out.println(currentUser.toString());
+			} else {
+				 System.out.println("currentUser == null" );
+			}
+
 			return "home" + "?number=" + number;
-		}else {
-			
+		} else {
+
 			return "errorPage";
 		}
 	}

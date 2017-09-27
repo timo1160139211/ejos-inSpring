@@ -26,24 +26,16 @@
 
 
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 spring 4.x supported -->
-<!-- o	<bean id="mappingJacksonHttpMessageConverter"
-		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes">
-			<list>
-				<value>text/html;charset=UTF-8</value>
-			</list>
-		</property>
-	</bean> -->
+	<!-- o <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="supportedMediaTypes"> <list> <value>text/html;charset=UTF-8</value> 
+		</list> </property> </bean> -->
 	<!-- 启动SpringMVC的注解功能， -->
-	<mvc:annotation-driven/>
-<!-- 	<mvc:annotation-driven>
-		<mvc:message-converters register-defaults="true">
-			<bean
-				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"
-				p:supportedMediaTypes="*/*" />
-		</mvc:message-converters>
-	</mvc:annotation-driven> -->
-
+	<mvc:annotation-driven />
+	<!-- <mvc:annotation-driven> <mvc:message-converters register-defaults="true"> 
+		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" 
+		p:supportedMediaTypes="*/*" /> </mvc:message-converters> </mvc:annotation-driven> -->
+	<mvc:resources mapping="**/*" location="/assets/**/*" />
+	<mvc:default-servlet-handler />
 
 
 
