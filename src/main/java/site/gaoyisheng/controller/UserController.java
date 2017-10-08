@@ -11,7 +11,7 @@ import site.gaoyisheng.pojo.User;
 import site.gaoyisheng.service.UserService;
 
 @Controller
-@RequestMapping("/u")
+@RequestMapping("/manage")
 public class UserController {
 
 	@Autowired
@@ -25,6 +25,22 @@ public class UserController {
 		User user = this.userService.getUserByPrimaryKey(userId);
 		model.addAttribute("user", user);
 		
+		return "users";
+	}
+	
+	@RequestMapping("/adduser")
+	public String addUser(HttpServletRequest request,Model model){
+		
+		//拿到用户
+		System.out.println(request.getParameter("id"));
+		
+		
+		//添加到数据库
+		Integer userId = Integer.parseInt(request.getParameter("id"));
+		User user = this.userService.getUserByPrimaryKey(userId);
+		model.addAttribute("user", user);
+		
+		//反馈到前台
 		return "users";
 	}
 	

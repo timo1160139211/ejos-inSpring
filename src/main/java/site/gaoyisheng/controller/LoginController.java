@@ -10,49 +10,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import site.gaoyisheng.pojo.User;
 import site.gaoyisheng.service.LoginService;
 
 @Controller
 @RequestMapping("/user")
+@SessionAttributes(names = { "user" }, types = { User.class }) // 设置会话属性
 public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
 
-	User currentUser;
-
 	@RequestMapping("/login")
-	@ResponseBody
-	public String login(HttpServletRequest request, Model model,
-			@RequestParam(value = "number", required = true) String number,
-			@RequestParam(value = "password", required = true) String password) {
+	public ModelAndView login(HttpServletRequest request,
+			@RequestParam(value = "_number", required = true) String number,
+			@RequestParam(value = "_password", required = true) String password) {
 
-		System.out.println(number + "\n" + password + "\n");
+		ModelAndView mv = new ModelAndView();
 
 		if (!(number.equals("") && password.equals(""))) {// not null
-
-			System.out.println("finding");
 
 			Map<String, Object> parameterMap = new HashMap<String, Object>();
 			parameterMap.put("number", number);
 			parameterMap.put("password", password);
 			// ajax + jQuery find User in DB or not?
-			currentUser = loginService.selectByNumberAndPassword(parameterMap);
-			model.addAttribute("user", currentUser);
+			User currentUser = loginService.selectByNumberAndPassword(parameterMap);
+			mv.addObject("currentUser", currentUser)
+			  .setViewName(
+					  "home" + "/" + currentUser.getIdentity() + "/" + currentUser.getId()
+					  );
 
-			if (null != currentUser) {
-				 System.out.println(currentUser.toString());
-			} else {
-				 System.out.println("currentUser == null" );
-			}
-
-			return "home" + "?number=" + number;
+			return mv;
 		} else {
-
-			return "errorPage";
+			return new ModelAndView("error");
 		}
 	}
 }

@@ -264,4 +264,11 @@ public class Achievement {
     public void setVersion(Long version) {
         this.version = version;
     }
+
+	@Override
+	public String toString() {
+		return "Achievement [id=" + id + ", questionId=" + questionId + ", studentId=" + studentId + ", score=" + score
+				+ ", answercode=" + answercode + ", result=" + result + ", filepath=" + filepath + ", version="
+				+ version + "]";
+	}
 }
