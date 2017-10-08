@@ -22,6 +22,7 @@
 </head>
 
 <body>
+<center>
 	<div class="container">
 		<form:form class="form-inline text-center" role="form"
 			action="${ctx}/user/login" method="post">
@@ -39,6 +40,8 @@
 			</div>
 		</form:form>
 	</div>
+</center>
+
 
 	<!-- 推荐开源CDN来选取需引用的外部JS //-->
 	<script src="http://cdn.gbtags.com/jquery/1.11.1/jquery.min.js"></script>

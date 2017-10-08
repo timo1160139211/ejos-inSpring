@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -18,7 +17,7 @@ import site.gaoyisheng.service.LoginService;
 
 @Controller
 @RequestMapping("/user")
-@SessionAttributes(names = { "user" }, types = { User.class }) // 设置会话属性
+@SessionAttributes(types = { User.class }) // 设置会话属性
 public class LoginController {
 
 	@Autowired
@@ -40,7 +39,7 @@ public class LoginController {
 			User currentUser = loginService.selectByNumberAndPassword(parameterMap);
 			mv.addObject("currentUser", currentUser)
 			  .setViewName(
-					  currentUser.getIdentity() + "/home"
+					  "redirect:../" + currentUser.getIdentity() + "/home"
 					  );
 
 			return mv;
