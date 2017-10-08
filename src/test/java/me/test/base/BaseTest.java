@@ -16,6 +16,7 @@
  */
 package me.test.base;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,5 +36,9 @@ public class BaseTest {
 
 	@Autowired
 	protected WebApplicationContext wac;
+
+
+	@Test
+	public void test() {}
 
 }

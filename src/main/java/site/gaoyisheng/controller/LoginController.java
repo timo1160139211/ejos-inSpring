@@ -26,8 +26,8 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request,
-			@RequestParam(value = "_number", required = true) String number,
-			@RequestParam(value = "_password", required = true) String password) {
+			@RequestParam(value = "number", required = true) String number,
+			@RequestParam(value = "password", required = true) String password) {
 
 		ModelAndView mv = new ModelAndView();
 
@@ -40,7 +40,7 @@ public class LoginController {
 			User currentUser = loginService.selectByNumberAndPassword(parameterMap);
 			mv.addObject("currentUser", currentUser)
 			  .setViewName(
-					  "home" + "/" + currentUser.getIdentity() + "/" + currentUser.getId()
+					  currentUser.getIdentity() + "/home"
 					  );
 
 			return mv;
