@@ -1,21 +1,53 @@
 package site.gaoyisheng.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import site.gaoyisheng.pojo.User;
 import site.gaoyisheng.service.UserService;
 
 @Controller
-@RequestMapping("/manage")
-public class UserController {
+@RequestMapping("/admin")
+public class AdminOpsController {
 
 	@Autowired
 	private UserService userService;
+	
+	@RequestMapping("/home")
+	public ModelAndView home(HttpSession session) {
+		
+		User currentUser =(User) session.getAttribute("currentUser");
+		System.out.println("home:" + currentUser.toString());
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("currentUser",currentUser)
+		  .setViewName("/admin/home");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/userList")
+	public ModelAndView questionList(HttpSession session) {
+		
+		User currentUser =(User) session.getAttribute("currentUser");
+		System.out.println("userList:" + currentUser.toString());
+		
+		List<User> userList = userService.selectAllUserExceptIdentity("student");
+
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("userList",userList)
+		  .setViewName("/admin/userList");
+		
+		return mv;
+	}
 	
 	@RequestMapping("/users")
 	public String toIndex(HttpServletRequest request,Model model){
@@ -28,20 +60,14 @@ public class UserController {
 		return "users";
 	}
 	
-	@RequestMapping("/adduser")
-	public String addUser(HttpServletRequest request,Model model){
+	@RequestMapping("/addUser")
+	public ModelAndView addUser() {
 		
-		//拿到用户
-		System.out.println(request.getParameter("id"));
+
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/admin/addUser");
 		
-		
-		//添加到数据库
-		Integer userId = Integer.parseInt(request.getParameter("id"));
-		User user = this.userService.getUserByPrimaryKey(userId);
-		model.addAttribute("user", user);
-		
-		//反馈到前台
-		return "users";
+		return mv;
 	}
 	
 }
