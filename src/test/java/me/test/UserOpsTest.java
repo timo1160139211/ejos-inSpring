@@ -41,13 +41,44 @@ public class UserOpsTest extends BaseTest {
 	}
 	
 	@Test
-	public void selectAllUserGroupByIdentityTest() {
-		List<User> users = us.selectAllUserGroupByIdentity("student");
+	public void selectAllUserByIdentityTest() {
+		List<User> users = us.selectAllUserByIdentity("student");
 		if (users != null) {
 			for (User u : users) {
 				System.out.println(u.toString());
 			}
 		}
+	}
+	
+	@Test
+	public void selectAllUserExceptIdentityTest() {
+		List<User> users = us.selectAllUserExceptIdentity("student");
+		if (users != null) {
+			for (User u : users) {
+				System.out.println(u.toString());
+			}
+		}
+	}
+	
+	@Test
+	public void InsertReturnIdTest() {
+		
+		User user = new User();
+		
+		user.setNumber("9998877");
+		user.setPassword("123456");
+		user.setIdentity("student");
+		user.setName("woshishui");
+		user.setIdcard("370105199XXXXXXXXX");
+		user.setTeamId(1);
+		user.setEmail("hahaha@qq.com");
+		
+		int i = us.insertCacheId(user);
+		
+		System.out.println(user.toString());
+		System.out.println("----------------"+i);
+
+		
 	}
 
 }

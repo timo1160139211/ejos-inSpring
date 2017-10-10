@@ -23,11 +23,17 @@
 		<include refid="Base_Column_List" />
 		from public."user"
 	</select>
-	<select id="selectAllUserGroupByIdentity"  resultMap="BaseResultMap">
+	<select id="selectAllUserByIdentity" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from public."user"
 		where identity = #{identity,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllUserExceptIdentity" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from public."user"
+		where identity != #{identity,jdbcType=VARCHAR}
 	</select>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
@@ -61,6 +67,23 @@
 		idcard, team_id,
 		email)
 		values (#{id,jdbcType=INTEGER},
+		#{number,jdbcType=CHAR},
+		#{password,jdbcType=CHAR},
+		#{identity,jdbcType=CHAR}, #{name,jdbcType=VARCHAR},
+		#{idcard,jdbcType=CHAR},
+		#{teamId,jdbcType=INTEGER},
+		#{email,jdbcType=CHAR})
+	</insert>
+	<insert id="insertCacheId" parameterType="site.gaoyisheng.pojo.User" >
+		<selectKey resultType="java.lang.Integer" order="AFTER"
+			keyProperty="id">
+			SELECT lastval() 
+		</selectKey>
+		insert into public."user" ( number, password,
+		identity, name,
+		idcard, team_id,
+		email)
+		values (
 		#{number,jdbcType=CHAR},
 		#{password,jdbcType=CHAR},
 		#{identity,jdbcType=CHAR}, #{name,jdbcType=VARCHAR},

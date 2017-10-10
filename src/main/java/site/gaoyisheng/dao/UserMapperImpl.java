@@ -62,6 +62,32 @@ public class UserMapperImpl implements UserMapper {
 
 		return 0;
 	}
+	
+	@Override
+	public	int insertCacheId(User user){
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.insert("insertCacheId", user);
+
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return i;
+		
+	}
 
 	@Override
 	public List<User> selectAllUser() {
@@ -88,7 +114,7 @@ public class UserMapperImpl implements UserMapper {
 	}
 
 	@Override
-	public List<User> selectAllUserGroupByIdentity(String identity) {
+	public List<User> selectAllUserByIdentity(String identity) {
 		List<User> userList = null;
 		try {
 			// 1.加载主配置文件
@@ -97,7 +123,31 @@ public class UserMapperImpl implements UserMapper {
 			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 			sqlSession = sqlSessionFactory.openSession();
 			// 4.参数是(sql语句id , Object对象)
-			userList = sqlSession.selectList("selectAllUserGroupByIdentity", identity);
+			userList = sqlSession.selectList("selectAllUserByIdentity", identity);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return userList;
+	}
+	
+	@Override
+	public List<User> selectAllUserExceptIdentity(String identity) {
+		List<User> userList = null;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			userList = sqlSession.selectList("selectAllUserExceptIdentity", identity);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

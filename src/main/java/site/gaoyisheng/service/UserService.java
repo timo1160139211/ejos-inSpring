@@ -5,10 +5,15 @@ import java.util.List;
 import site.gaoyisheng.pojo.User;
 
 public interface UserService {
-	public User getUserByPrimaryKey(Integer userId);
+	User getUserByPrimaryKey(Integer userId);
 
-	public List<User> selectAllUser();
-	public List<User> selectAllUserGroupByIdentity(String identity);
-	
+	List<User> selectAllUser();
+
+	List<User> selectAllUserByIdentity(String identity);
+
 	int insertUser(User record);
+
+	int insertCacheId(User record);
+
+	List<User> selectAllUserExceptIdentity(String identity);
 }

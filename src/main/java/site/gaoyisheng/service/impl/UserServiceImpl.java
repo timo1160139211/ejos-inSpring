@@ -29,8 +29,13 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> selectAllUserGroupByIdentity(String identity) {
-		return userDao.selectAllUserGroupByIdentity(identity);
+	public List<User> selectAllUserByIdentity(String identity) {
+		return userDao.selectAllUserByIdentity(identity);
+	}
+	
+	@Override
+	public List<User> selectAllUserExceptIdentity(String identity) {
+		return userDao.selectAllUserExceptIdentity(identity);
 	}
 	
 	/**
@@ -41,5 +46,14 @@ public class UserServiceImpl implements UserService {
 	public int insertUser(User user) {
 		return this.userDao.insertSelective(user);
 	}
-
+	
+	/**
+	 * insert user .
+	 * @param user
+	 * @return 返回的并不是id,而是 0,1 = false,true
+	 */
+	@Override
+	public int insertCacheId(User user) {
+		return this.userDao.insertCacheId(user);
+	}
 }
