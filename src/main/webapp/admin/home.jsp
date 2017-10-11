@@ -12,10 +12,7 @@
 </head>
 <body>
 <center>
-<h1>welcome:${currentUser.identity}</h1>
-
-<p><core:out value="${currentUser.name}"></core:out></p>
-<p><core:out value="${currentUser.email}"></core:out></p>
+<h1>welcome:${currentUser.identity} ${currentUser.name}</h1>
 
 <a href="./home" target="_blank">返回主页</a>
 <a href="./userList" target="_blank">用户列表</a>

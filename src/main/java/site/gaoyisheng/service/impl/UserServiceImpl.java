@@ -56,4 +56,15 @@ public class UserServiceImpl implements UserService {
 	public int insertCacheId(User user) {
 		return this.userDao.insertCacheId(user);
 	}
+
+	@Override
+	public int updateByPrimaryKey(User user) {
+		
+		return this.userDao.updateByPrimaryKey(user);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(Integer id) {
+		return this.userDao.deleteByPrimaryKey(id);
+	}
 }

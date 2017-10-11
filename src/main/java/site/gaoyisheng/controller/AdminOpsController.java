@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -73,29 +75,15 @@ public class AdminOpsController {
 	@RequestMapping("/add")
 	public ModelAndView add(HttpServletRequest request) {
 		
-		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("number"));
-		System.out.println(request.getParameter("password"));
-		System.out.println(request.getParameter("identity"));
-		System.out.println(request.getParameter("idcard"));
-		System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-		
 		User user = new User();
-		
 		user.setNumber(request.getParameter("number"));
 		user.setPassword(request.getParameter("password"));
 		user.setIdentity(request.getParameter("identity"));
 		user.setName(request.getParameter("name"));
 		user.setIdcard(request.getParameter("idcard"));
 		user.setTeamId(null);
-		user.setEmail("hahaha@qq.com");
 		
-		int i = userService.insertCacheId(user);
-		
-		System.out.println(user.toString());
-		System.out.println("----------------"+i);
-
+		userService.insertCacheId(user);
 		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:" + "/admin/userList");
@@ -103,4 +91,38 @@ public class AdminOpsController {
 		return mv;
 	}
 	
+	@RequestMapping("/updateUser/{userId}")
+	public ModelAndView updateUser(@PathVariable("userId") Integer userId) {
+		
+		User user = userService.getUserByPrimaryKey(userId);
+		
+		ModelAndView mv = new ModelAndView();
+		
+//		model.addAttribute("selectedUser", user);
+		mv.addObject("selectedUser", user)
+		  .setViewName("/admin/updateUser");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/update")
+	public ModelAndView update(@ModelAttribute User user) {
+		
+		userService.updateByPrimaryKey(user);
+		
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:" + "/admin/userList");
+		
+		return mv;
+	}
+	
+	@RequestMapping("/deleteUser/{userId}")
+	public ModelAndView deleteUser(@PathVariable("userId") Integer userId) {
+		
+		userService.deleteByPrimaryKey(userId);
+		
+		ModelAndView mv = new ModelAndView("redirect:" + "/admin/userList");
+		
+		return mv;
+	}
 }

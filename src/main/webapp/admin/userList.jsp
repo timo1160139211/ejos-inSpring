@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>User lists</title>
+<title>用户列表</title>
 </head>
 <body>
 	<center>
@@ -19,6 +19,7 @@
 				<td>身份证号</td>
 				<td>身份</td>
 				<td></td>
+				<td></td>
 			</tr>
 			<core:forEach var="user" items="${userList}">
 				<tr>
@@ -26,14 +27,13 @@
 					<td><core:out value="${user.number}"></core:out></td>
 					<td><core:out value="${user.idcard}"></core:out></td>
 					<td><core:out value="${user.identity}"></core:out></td>
-					<td><a href="./updateUser" target="_blank">修改用户</a></td>
+					<td><a href="./updateUser/${user.id}" target="_blank">修改用户</a></td>
+					<td><a href="./deleteUser/${user.id}" target="_blank">删除用户</a></td>
 				</tr>
 			</core:forEach>
 		</table>
 		<a href="./home" target="_blank">返回主页</a>
 		<a href="./addUser" target="_blank">添加用户</a>
-		<a href="./deleteUser" target="_blank">删除用户</a> 
-		
 
 	</center>
 

@@ -35,7 +35,25 @@ public class UserMapperImpl implements UserMapper {
 
 	@Override
 	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			sqlSession.delete("deleteByPrimaryKey", id);
+			
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
 		return 0;
 	}
 
@@ -186,9 +204,29 @@ public class UserMapperImpl implements UserMapper {
 	}
 
 	@Override
-	public int updateByPrimaryKey(User record) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateByPrimaryKey(User user) {
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.update("updateByPrimaryKeySelective", user);
+
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return i;
 	}
+
 
 }

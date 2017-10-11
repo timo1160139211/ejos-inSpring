@@ -16,4 +16,8 @@ public interface UserService {
 	int insertCacheId(User record);
 
 	List<User> selectAllUserExceptIdentity(String identity);
+
+	int updateByPrimaryKey(User record);
+	
+	int deleteByPrimaryKey(Integer id);
 }
