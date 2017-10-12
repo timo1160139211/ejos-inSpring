@@ -26,7 +26,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import site.gaoyisheng.pojo.Question;
-import site.gaoyisheng.pojo.User;
 
 public class QuestionMapperImpl implements QuestionMapper {
 	

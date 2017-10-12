@@ -5,7 +5,7 @@ import java.util.List;
 import site.gaoyisheng.pojo.User;
 
 public interface UserService {
-	User getUserByPrimaryKey(Integer userId);
+	User selectUserByPrimaryKey(Integer userId);
 
 	List<User> selectAllUser();
 

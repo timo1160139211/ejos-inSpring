@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 	 * select user by PK.
 	 */
 	@Override
-	public User getUserByPrimaryKey(Integer userId) {
+	public User selectUserByPrimaryKey(Integer userId) {
 		return this.userDao.selectByPrimaryKey(userId);
 	}
 

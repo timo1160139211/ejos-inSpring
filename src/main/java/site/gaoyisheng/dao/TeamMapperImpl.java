@@ -16,14 +16,67 @@
  */
 package site.gaoyisheng.dao;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import site.gaoyisheng.pojo.Team;
 
 public class TeamMapperImpl implements TeamMapper {
+	
+	private SqlSession sqlSession;
 
 	@Override
+	public List<Team> selectByTeacherId(Integer teacherId) {
+		List<Team> teamList = null;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			teamList = sqlSession.selectList("selectByTeacherId",teacherId);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
+		return teamList;
+	}
+	
+	@Override
 	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return 0;
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.delete("deleteByPrimaryKey",id);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
+		return i;
 	}
 
 	@Override
@@ -45,15 +98,59 @@ public class TeamMapperImpl implements TeamMapper {
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(Team record) {
-		// TODO Auto-generated method stub
+	public int updateByPrimaryKeySelective(Team team) {
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.update("updateByPrimaryKeySelective",team);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
+		return i;
+	}
+
+	@Override
+	public int updateByPrimaryKey(Team team) {
+		
 		return 0;
 	}
 
 	@Override
-	public int updateByPrimaryKey(Team record) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertCacheId(Team team) {
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.insert("insertCacheId",team);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+		
+		return i;
 	}
+
+
 
 }
