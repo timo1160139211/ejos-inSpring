@@ -197,9 +197,28 @@ public class UserMapperImpl implements UserMapper {
 	}
 
 	@Override
-	public int updateByPrimaryKeySelective(User record) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateByPrimaryKeySelective(User user) {
+		int i = 0;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			i = sqlSession.update("updateByPrimaryKeySelective", user);
+
+			sqlSession.commit();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return i;
 	}
 
 	@Override
@@ -225,6 +244,30 @@ public class UserMapperImpl implements UserMapper {
 		}
 
 		return i;
+	}
+
+	@Override
+	public List<User> selectByTeamId(Integer teamId) {
+		List<User> studentList = null;
+		try {
+			// 1.加载主配置文件
+			InputStream inputStream = Resources.getResourceAsStream("spring-mybatis.xml");
+			// 2.创建SqlSessionFactory对象
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSession = sqlSessionFactory.openSession();
+			// 4.参数是(sql语句id , Object对象)
+			studentList = sqlSession.selectList("selectByTeamId", teamId);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return studentList;
 	}
 
 

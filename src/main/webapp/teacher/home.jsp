@@ -8,16 +8,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>teacher home</title>
+<title>Teacher Home</title>
 </head>
 <body>
 <center>
-<h1>welcome:${currentUser.identity}</h1>
+<h1>welcome:${currentUser.identity} ${currentUser.name}</h1>
 
-<p><core:out value="${currentUser.name}"></core:out></p>
 <p><core:out value="${currentUser.email}"></core:out></p>
 
-<a href="../student/questionList" target="_blank">Question List</a>
+<a href="./team-list" target="_blank">管理我的班级</a>
+<a href="./student-list" target="_blank">管理我的学生</a>
+<a href="./question-list" target="_blank">管理我的题目</a>
+<a href="./achievement-list" target="_blank">查看成绩单</a>
+<a href="./team-add-form" target="_blank">添加班级</a>
+<a href="./student-add-form" target="_blank">添加学生</a>
+<a href="./question-add-form" target="_blank">添加题目</a>
 </center>
 </body>
 </html>

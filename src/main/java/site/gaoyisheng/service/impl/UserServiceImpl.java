@@ -67,4 +67,14 @@ public class UserServiceImpl implements UserService {
 	public int deleteByPrimaryKey(Integer id) {
 		return this.userDao.deleteByPrimaryKey(id);
 	}
+
+	@Override
+	public List<User> selectByTeamId(Integer teamId) {
+		return userDao.selectByTeamId(teamId);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(User user) {
+		return this.userDao.updateByPrimaryKeySelective(user);
+	}
 }

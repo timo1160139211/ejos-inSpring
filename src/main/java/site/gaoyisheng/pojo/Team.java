@@ -132,4 +132,9 @@ public class Team {
     public void setTeacherId(Integer teacherId) {
         this.teacherId = teacherId;
     }
+
+	@Override
+	public String toString() {
+		return "Team [id=" + id + ", name=" + name + ", introduce=" + introduce + ", teacherId=" + teacherId + "]";
+	}
 }

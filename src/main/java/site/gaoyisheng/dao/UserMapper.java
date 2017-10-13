@@ -71,6 +71,8 @@ public interface UserMapper {
      */
     User selectByPrimaryKey(Integer id);
     
+    List<User> selectByTeamId(Integer teamId);
+    
     /**
      * 。
      * login
