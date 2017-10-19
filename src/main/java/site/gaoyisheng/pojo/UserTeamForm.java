@@ -27,7 +27,6 @@ public class UserTeamForm {
 	Integer student_id;
 	String student_number;
 	String student_password;
-	String student_identity;
 	String student_name;
 	String student_idcard;
 	String student_email;
@@ -54,12 +53,6 @@ public class UserTeamForm {
 	}
 	public void setStudent_password(String student_password) {
 		this.student_password = student_password;
-	}
-	public String getStudent_identity() {
-		return student_identity;
-	}
-	public void setStudent_identity(String student_identity) {
-		this.student_identity = student_identity;
 	}
 	public String getStudent_name() {
 		return student_name;
@@ -106,7 +99,7 @@ public class UserTeamForm {
 	@Override
 	public String toString() {
 		return "UserTeamForm [student_id=" + student_id + ", student_number=" + student_number + ", student_password="
-				+ student_password + ", student_identity=" + student_identity + ", student_name=" + student_name
+				+ student_password + ", student_name=" + student_name
 				+ ", student_idcard=" + student_idcard + ", student_email=" + student_email + ", team_id=" + team_id
 				+ ", team_name=" + team_name + ", team_introduce=" + team_introduce + ", teacher_id=" + teacher_id
 				+ "]";
