@@ -1,8 +1,10 @@
 package site.gaoyisheng.service;
 
 import java.util.List;
+import java.util.Map;
 
 import site.gaoyisheng.pojo.User;
+import site.gaoyisheng.pojo.UserTeamForm;
 
 public interface UserService {
 	User selectUserByPrimaryKey(Integer userId);
@@ -24,4 +26,6 @@ public interface UserService {
 	int updateByPrimaryKeySelective(User user);
 	
 	int deleteByPrimaryKey(Integer id);
+	
+	List<UserTeamForm> selectByTeacherIdAndTeamId(Integer teacherId,Integer teamId);
 }

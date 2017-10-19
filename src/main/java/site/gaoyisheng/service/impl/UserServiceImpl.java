@@ -1,12 +1,15 @@
 package site.gaoyisheng.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import site.gaoyisheng.dao.UserMapper;
 import site.gaoyisheng.pojo.User;
+import site.gaoyisheng.pojo.UserTeamForm;
 import site.gaoyisheng.service.UserService;
 
 @Service("userService")
@@ -76,5 +79,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int updateByPrimaryKeySelective(User user) {
 		return this.userDao.updateByPrimaryKeySelective(user);
+	}
+
+	@Override
+	public List<UserTeamForm> selectByTeacherIdAndTeamId(Integer teacherId, Integer teamId) {
+		Map<String, Integer> parameterMap = new HashMap<String, Integer>();
+		parameterMap.put("teacherId", teacherId);
+		parameterMap.put("teamId", teamId);
+		return this.userDao.selectByTeacherIdAndTeamId(parameterMap);
 	}
 }

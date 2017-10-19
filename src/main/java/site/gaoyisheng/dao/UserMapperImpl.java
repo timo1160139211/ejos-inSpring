@@ -18,15 +18,19 @@ package site.gaoyisheng.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import site.gaoyisheng.pojo.User;
+import site.gaoyisheng.pojo.UserTeamForm;
+import site.gaoyisheng.utils.MybatisUtil;
 
 public class UserMapperImpl implements UserMapper {
 
@@ -270,5 +274,26 @@ public class UserMapperImpl implements UserMapper {
 		return studentList;
 	}
 
+	@Override
+	public List<UserTeamForm> selectByTeacherIdAndTeamId(Map<String, Integer> param) {
+		
+		List<UserTeamForm> studentList = null;
+		try {
+			
+			MybatisUtil mybatisUtil = new MybatisUtil();
+			
+			studentList = mybatisUtil.getSqlSession()
+					.selectList("selectByTeacherIdAndTeamId", param);
 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (sqlSession != null) {
+				sqlSession.close();
+			}
+		}
+
+		return studentList;
+	}
 }

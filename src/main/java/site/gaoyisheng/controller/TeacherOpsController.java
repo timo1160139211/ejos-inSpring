@@ -221,4 +221,38 @@ public class TeacherOpsController {
 	
 	/******************************************STUDENT********************************************/
 	
+	/******************************************QUESTION********************************************/
+	
+	
+	
+	
+	
+	
+	/******************************************QUESTION********************************************/
+
+	/******************************************ACHIEVEMENT********************************************/
+	
+	@RequestMapping("/achievement-list")
+	public ModelAndView achievementList(HttpSession session) {
+		
+		User currentUser =(User) session.getAttribute("currentUser");
+
+		List<Team> teams = teamService.selectByTeacherId(currentUser.getId());
+		
+		List<User> studentList = new ArrayList<User>();
+		
+		for(Team team:teams) {
+			studentList.addAll(userService.selectByTeamId(team.getId()));
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("achievementList",studentList)
+		  .addObject("currentUser", currentUser)
+		  .setViewName("/teacher/achievement-list");
+		
+		return mv;
+	}	
+	
+	/******************************************ACHIEVEMENT********************************************/
+
 }
