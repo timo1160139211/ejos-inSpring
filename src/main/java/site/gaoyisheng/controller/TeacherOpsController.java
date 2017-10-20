@@ -27,10 +27,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import site.gaoyisheng.pojo.Team;
 import site.gaoyisheng.pojo.User;
+import site.gaoyisheng.pojo.UserTeamForm;
 import site.gaoyisheng.service.TeamService;
 import site.gaoyisheng.service.UserService;
 
@@ -141,46 +143,45 @@ public class TeacherOpsController {
 	
 	/******************************************STUDENT********************************************/
 	@RequestMapping("/student-list")
-	public ModelAndView studentList(HttpSession session) {
+	public ModelAndView studentList(HttpSession session,
+			                         @RequestParam(name="teamId",required=false)Integer teamId) {
 		
 		User currentUser =(User) session.getAttribute("currentUser");
 
 		List<Team> teams = teamService.selectByTeacherId(currentUser.getId());
 		
-		List<User> studentList = new ArrayList<User>();
-		
-		for(Team team:teams) {
-			studentList.addAll(userService.selectByTeamId(team.getId()));
-		}
+		List<UserTeamForm> userTeamFormModels = userService.selectByTeacherIdAndTeamId(currentUser.getId(), teamId);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("studentList",studentList)
+		mv.addObject("userTeamFormModels",userTeamFormModels)
 		  .addObject("currentUser", currentUser)
+		  .addObject("teams", teams)
 		  .setViewName("/teacher/student-list");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/student-add-form")
-	public ModelAndView addsSudentForm(HttpSession session) {
+	public ModelAndView addSudentForm(HttpSession session) {
 		
 		User currentUser =(User) session.getAttribute("currentUser");
 		
+		List<Team> teams = teamService.selectByTeacherId(currentUser.getId());
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("student", new User())
-		  .setViewName("/" + currentUser.getIdentity() +"/student-add-form");
+		  .addObject("teams", teams)
+		  .setViewName("/teacher/student-add-form");
 		
 		return mv;
 	}
 	
 	@RequestMapping("/student-add")
-	public ModelAndView addStudent(@ModelAttribute User student,HttpSession session) {
+	public ModelAndView addStudent(@ModelAttribute User student) {
 		
 		student.setIdentity("student");
 		userService.insertCacheId(student);
 		
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("redirect:" + "/teacher/student-list");
+		ModelAndView mv = new ModelAndView("redirect:" + "/teacher/student-list");
 		
 		return mv;
 	}
@@ -196,13 +197,18 @@ public class TeacherOpsController {
 	}
 	
 	@RequestMapping("/student-update-form/{studentId}")
-	public ModelAndView updateStudentForm(@PathVariable("studentId") Integer studentId) {
+	public ModelAndView updateStudentForm(@PathVariable("studentId") Integer studentId,HttpSession session) {
+		User currentUser =(User) session.getAttribute("currentUser");
+
 		
 		User selectedStudent = userService.selectUserByPrimaryKey(studentId);
+		List<Team> teams = teamService.selectByTeacherId(currentUser.getId());
+
 		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("selectedStudent", selectedStudent)
+		  .addObject("teams", teams)
 		  .setViewName("/teacher/student-update-form");
 		
 		return mv;

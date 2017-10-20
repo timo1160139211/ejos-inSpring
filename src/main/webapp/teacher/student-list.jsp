@@ -41,15 +41,13 @@
 					<td><core:out value="${model.student_number}"></core:out></td>
 					<td><core:out value="${model.student_idcard}"></core:out></td>
 					<td><core:out value="${model.team_name}"></core:out></td>
-					<td><a href="${ctx}/teacher/student-update-form/${student.id}"
-						target="_blank">修改学生</a></td>
-					<td><a href="${ctx}/teacher/student-delete/${student.id}"
-						target="_blank">删除学生</a></td>
+					<td><a href="${ctx}/teacher/student-update-form/${model.student_id}" >修改学生</a></td>
+					<td><a href="${ctx}/teacher/student-delete/${model.student_id}" >删除学生</a></td>
 				</tr>
 			</core:forEach>
 		</table>
-		<a href="./home" target="_blank">返回主页</a> <a href="./student-add-form"
-			target="_blank">添加学生</a>
+		<a href="${ctx}/teacher/home" >返回主页</a>
+		 <a href="${ctx}/teacher/student-add-form" >添加学生</a>
 
 	</center>
 

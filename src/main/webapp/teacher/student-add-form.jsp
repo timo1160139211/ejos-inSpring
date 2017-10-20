@@ -30,11 +30,11 @@
 								id="password" path="password" /></label></td>
 				</tr>
 				<tr>
-					<td align="center"><form:select id="team-selector"
-							path="teamId">
-							<option value="1">1班</option>
-							<option value="1">1班－</option>
-						</form:select></td>
+					<td><form:select id="team-selector" path="teamId">
+							<core:forEach items="${teams}" var="team">
+								<option value="${team.id}">${team.name}</option>
+							</core:forEach>
+					</form:select></td>
 				</tr>
 				<tr>
 					<td><label>身份证号:<form:input type="text" id="idcard"
@@ -46,9 +46,8 @@
 				</tr>
 			</table>
 		</form:form>
-		<a href="./home" target="_blank">返回主页</a> <a href="./student-list"
-			target="_blank">管理我的学生</a> <a href="./student-add-form"
-			target="_blank">添加学生</a>
+		<a href="${ctx}/teacher/home">返回主页</a> <a
+			href="${ctx}/teacher/student-list">管理我的学生</a>  
 
 	</center>
 </body>
