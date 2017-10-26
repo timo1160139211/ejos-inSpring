@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import site.gaoyisheng.dao.UserMapper;
@@ -37,7 +38,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	@Cacheable("all_user_except_stu")
 	public List<User> selectAllUserExceptIdentity(String identity) {
+		System.out.println("AllUserExceptIdentity cache saved ????=============");
 		return userDao.selectAllUserExceptIdentity(identity);
 	}
 	
@@ -62,7 +65,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int updateByPrimaryKey(User user) {
-		
 		return this.userDao.updateByPrimaryKey(user);
 	}
 
