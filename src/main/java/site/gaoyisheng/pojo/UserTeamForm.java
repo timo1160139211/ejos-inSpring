@@ -16,14 +16,17 @@
  */
 package site.gaoyisheng.pojo;
 
+import java.io.Serializable;
+
 /**
  * .
  * user & team 表单类
  * @author gaoyisheng
  *
  */
-public class UserTeamForm {
-
+public class UserTeamForm implements Serializable{
+	private static final long serialVersionUID = 5396843366287415890L;
+	
 	Integer student_id;
 	String student_number;
 	String student_password;
