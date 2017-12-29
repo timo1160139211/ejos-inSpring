@@ -17,7 +17,7 @@
 <p><core:out value="${currentUser.name}"></core:out></p>
 <p><core:out value="${currentUser.email}"></core:out></p>
 
-<a href="../student/questionList">Question List</a>
+<a href="../student/questionList" target="_blank">Question List</a>
 </center>
 </body>
 </html>

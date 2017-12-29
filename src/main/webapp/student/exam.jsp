@@ -12,7 +12,8 @@
 </head>
 <body>
 	<center>
-		<h1>welcome:${currentUser.identity}</h1>
+	<h1>开始答题</h1>
+		<h3>welcome:${currentUser.identity}</h3>
 
 		<p>
 			<core:out value="${currentUser.name}"></core:out>
@@ -21,7 +22,7 @@
 			<core:out value="${currentUser.email}"></core:out>
 		</p>
 
-		<a href="../questionList">Question List</a>
+		<a href="../questionList" target="_blank">Question List</a>
 	</center>
 </body>
 </html>

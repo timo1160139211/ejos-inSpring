@@ -44,7 +44,7 @@ public class MyAppTest extends BaseTest {
 		param.put("number", "15110471070");
 		param.put("password", "123456");
 
-		User u = us.getUserByPrimaryKey(2);
+//		User u = us.getUserByPrimaryKey(2);
 //		User u1 = ls.selectByNumberAndPassword(param);
 //		System.out.println(u.toString());
 //		System.out.println(u1.toString());

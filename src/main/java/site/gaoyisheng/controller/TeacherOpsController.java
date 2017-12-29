@@ -19,7 +19,6 @@ package site.gaoyisheng.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -239,26 +238,23 @@ public class TeacherOpsController {
 	/******************************************ACHIEVEMENT********************************************/
 	
 	@RequestMapping("/achievement-list")
-	public ModelAndView achievementList(HttpSession session) {
+	public ModelAndView achievementList(HttpSession session,
+			                         @RequestParam(name="teamId",required=false)Integer teamId) {
 		
 		User currentUser =(User) session.getAttribute("currentUser");
 
 		List<Team> teams = teamService.selectByTeacherId(currentUser.getId());
 		
-		List<User> studentList = new ArrayList<User>();
-		
-		for(Team team:teams) {
-			studentList.addAll(userService.selectByTeamId(team.getId()));
-		}
+		List<UserTeamForm> userTeamFormModels = userService.selectByTeacherIdAndTeamId(currentUser.getId(), teamId);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("achievementList",studentList)
+		mv.addObject("userTeamFormModels",userTeamFormModels)
 		  .addObject("currentUser", currentUser)
-		  .setViewName("/teacher/achievement-list");
+		  .addObject("teams", teams)
+		  .setViewName("/teacher/student-list");
 		
 		return mv;
-	}	
-	
+	}
 	/******************************************ACHIEVEMENT********************************************/
 
 }

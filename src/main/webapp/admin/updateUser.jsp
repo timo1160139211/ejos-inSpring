@@ -30,7 +30,7 @@
 								id="password" path="password" /></label></td>
 				</tr>
 				<tr>
-					<td><form:select id="identity-selector" path="identity">
+					<td align="center"><form:select id="identity-selector" path="identity">
 							<option value="teacher">老师</option>
 							<option value="admin">管理员</option>
 						</form:select></td>

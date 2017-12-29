@@ -16,13 +16,16 @@
  */
 package me.test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import me.test.base.BaseTest;
 import site.gaoyisheng.pojo.User;
+import site.gaoyisheng.pojo.UserTeamForm;
 import site.gaoyisheng.service.UserService;
 
 public class UserOpsTest extends BaseTest {
@@ -30,55 +33,101 @@ public class UserOpsTest extends BaseTest {
 	@Autowired
 	private UserService us;
 
-	@Test
-	public void selectAllUserTest() {
-		List<User> users = us.selectAllUser();
-		if (users != null) {
-			for (User u : users) {
-				System.out.println(u.toString());
-			}
-		}
-	}
+//	@Test
+//	public void selectAllUserTest() {
+//		List<User> users = us.selectAllUser();
+//		if (users != null) {
+//			for (User u : users) {
+//				System.out.println(u.toString());
+//			}
+//		}
+//	}
 	
-	@Test
-	public void selectAllUserByIdentityTest() {
-		List<User> users = us.selectAllUserByIdentity("student");
-		if (users != null) {
-			for (User u : users) {
-				System.out.println(u.toString());
-			}
-		}
-	}
-	
-	@Test
-	public void selectAllUserExceptIdentityTest() {
-		List<User> users = us.selectAllUserExceptIdentity("student");
-		if (users != null) {
-			for (User u : users) {
-				System.out.println(u.toString());
-			}
-		}
-	}
-	
-	@Test
-	public void InsertReturnIdTest() {
-		
-		User user = new User();
-		
-		user.setNumber("9998877");
-		user.setPassword("123456");
-		user.setIdentity("student");
-		user.setName("woshishui");
-		user.setIdcard("370105199XXXXXXXXX");
-		user.setTeamId(1);
-		user.setEmail("hahaha@qq.com");
-		
-		int i = us.insertCacheId(user);
-		
-		System.out.println(user.toString());
-		System.out.println("----------------"+i);
+//	@Test
+//	public void selectAllUserByIdentityTest() {
+//		List<User> users = us.selectAllUserByIdentity("student");
+//		if (users != null) {
+//			for (User u : users) {
+//				System.out.println(u.toString());
+//			}
+//		}
+//	}
 
+//	@Test
+//	public void testSelectByTeamId() {
+//		List<User> users = us.selectByTeamId(1);
+//		if (users != null) {
+//			for (User u : users) {
+//				System.out.println(u.toString());
+//			}
+//		}
+//	}
+	
+	@Test
+	public void testSelectByTeacherIdAndTeamId() {
 		
+		List<UserTeamForm> users = us.selectByTeacherIdAndTeamId(2,null);
+		if (users != null) {
+			for (UserTeamForm u : users) {
+				System.out.println(u.toString());
+			}
+		}
 	}
+//	@Test
+//	public void selectAllUserExceptIdentityTest() {
+//		List<User> users = us.selectAllUserExceptIdentity("student");
+//		if (users != null) {
+//			for (User u : users) {
+//				System.out.println(u.toString());
+//			}
+//		}
+//	}
+	
+//	@Test
+//	public void InsertReturnIdTest() {
+//		
+//		User user = new User();
+//		
+//		user.setNumber("9998877");
+//		user.setPassword("123456");
+//		user.setIdentity("student");
+//		user.setName("woshishui");
+//		user.setIdcard("370105199XXXXXXXXX");
+//		user.setTeamId(1);
+//		user.setEmail("hahaha@qq.com");
+//		
+//		int i = us.insertCacheId(user);
+//		
+//		System.out.println(user.toString());
+//		System.out.println("----------------"+i);
+//
+//		
+//	}
+	
+//	@Test
+//	public void updateTest() {
+//		
+//		User user = new User();
+//		
+//		user.setId(121);
+//		user.setNumber("15110471010");
+//		user.setPassword("123456");
+//		user.setIdentity("student");
+//		user.setName("woshishui");
+//		user.setIdcard("370105199XXXXXXXXX");
+//		user.setTeamId(1);
+//		user.setEmail("hahaha@qq.com");
+//		
+//		int i = us.updateByPrimaryKey(user);
+//		
+//		System.out.println(user.toString());
+//		
+//	}
+	
+//	@Test
+//	public void deleteTest() {
+//		
+//		us.deleteByPrimaryKey(140);
+//	}
 
 }

@@ -57,7 +57,7 @@ public class AdminOpsController {
 		System.out.println(request.getParameter("id"));
 		
 		Integer userId = Integer.parseInt(request.getParameter("id"));
-		User user = this.userService.getUserByPrimaryKey(userId);
+		User user = this.userService.selectUserByPrimaryKey(userId);
 		model.addAttribute("user", user);
 		
 		return "users";
@@ -94,7 +94,7 @@ public class AdminOpsController {
 	@RequestMapping("/updateUser/{userId}")
 	public ModelAndView updateUser(@PathVariable("userId") Integer userId) {
 		
-		User user = userService.getUserByPrimaryKey(userId);
+		User user = userService.selectUserByPrimaryKey(userId);
 		
 		ModelAndView mv = new ModelAndView();
 		
